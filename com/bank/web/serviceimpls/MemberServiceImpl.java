@@ -41,8 +41,47 @@ import com.bank.web.services.MemberService;
 
 		@Override
 		public MemberBean[] findByName(String name) {
-			// TODO Auto-generated method stub
-			return null;
+			customers = new CustomerBean[10];
+			employees = new EmployeeBean[10];
+			int count1=0 , count2=0 , count3=0;
+			for(int i=0 ; i<cuscount ; i++) {
+				if(name.equals(customers[i].getName())) {
+					count1++;
+					break;
+				}
+			}
+			for(int i=0 ; i<cuscount ; i++) {
+				if(name.equals(employees[i].getName())) {
+					count2++;
+					break;
+				}
+			}
+			count3 = count1 + count2;
+			MemberBean[] members = new MemberBean[count3];
+			int j=0;
+			for(int i=0 ; i<cuscount ; i++) {
+				if(name.equals(customers[i].getName())) {
+					members[j] = customers[i];
+					j++;
+					if(count1==j) {
+						break;
+					}
+					break;
+				}
+			}
+			int k = 0;
+			for(int i=0 ; i<cuscount ; i++) {
+				if(name.equals(employees[i].getName())) {
+					members[j] = employees[i];
+					k++;
+					j++;
+					if(count2==k) {
+						break;
+					}
+					break;
+				}
+			}
+			return members;
 		}
 
 		@Override
@@ -65,8 +104,16 @@ import com.bank.web.services.MemberService;
 
 		@Override
 		public boolean login(MemberBean param) {
-			// TODO Auto-generated method stub
-			return false;
+			return findById(param.getId()).getPw().equals(param.getPw());
+			
+			/*
+			boolean flag = false;
+			MemberBean t = findById(param.getId());
+			if() {
+				
+			}
+			return flag;
+			*/
 		}
 
 		@Override
@@ -83,28 +130,68 @@ import com.bank.web.services.MemberService;
 
 		@Override
 		public boolean existId(String id) {
-			// TODO Auto-generated method stub
-			return false;
+			boolean flag = false;
+			for(int i=0 ; i<cuscount ; i++) {
+				if(id.equals(customers[i].getId())) {
+					flag = true;
+					break;
+				}
+			}
+			for(int i=0 ; i<empcount ; i++) {
+				if(id.equals(employees[i].getId())) {
+					flag = true;
+					break;
+				}
+			}
+			return flag;
 		}
 
 		@Override
 		public void updatePass(MemberBean param) {
-			
-			/*
 			String id = param.getId();
 			String[] pws = param.getPw().split(",");
 			String oldpw = pws[0];
 			String newps = pws[1];
-			for(int i=0 ; i<count ; i++) {
-				if()
-			}
-			*/
-			
+			param.setPw(oldpw);
+				if(login(param)) {
+				
+					for(int i=0 ; i<cuscount ; i++) {
+						if(id.equals(customers[i].getId())) {
+							customers[i].setPw(newps);;
+							break;
+						}
+					}
+					for(int i=0 ; i<empcount ; i++) {
+						if(id.equals(employees[i].getId())) {
+							employees[i].setPw(newps);;
+							break;
+						}
+					}
+					
+				}
+				
 		}
 
 		@Override
 		public void deleteMember(MemberBean param) {
-			// TODO Auto-generated method stub
+			if(login(param)) {
+				for(int i=0 ; i<cuscount ; i++) {
+					if(param.getId().equals(customers[i].getId())) {
+						customers[i] = customers[cuscount-1];
+						cuscount--;
+						break;
+					}
+				}
+				for(int i=0 ; i<empcount ; i++) {
+					if(param.getId().equals(employees[i].getId())) {
+						customers[i] = customers[cuscount-1];
+						cuscount--;
+						break;
+					}
+				}
+				
+			}
+			
 			
 		}
 

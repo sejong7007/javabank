@@ -41,26 +41,38 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public AccountBean[] findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		AccountBean[] acc = new AccountBean[count];
+		for(int i=0 ; i<count ; i++) {
+			acc[i] = account[i];
+		}
+		return acc;
 	}
 
 	@Override
 	public AccountBean findByAccountNum(String accountNum) {
-		// TODO Auto-generated method stub
-		return null;
+		AccountBean acc = new AccountBean();
+		for(int i=0 ; i<count ; i++) {
+			if(accountNum.equals(account[i].getAccountNum())) {
+				acc = account[i];
+			}
+		}
+		return acc;
 	}
 
 	@Override
 	public int countAccounts() {
-		// TODO Auto-generated method stub
-		return 0;
+		return count;
 	}
 
 	@Override
 	public boolean existAccountNum(String accountNum) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean flag = false;
+		for(int i=0 ; i<count ; i++) {
+				if(accountNum.equals(account[i].getAccountNum())) {
+					flag = true;
+				}
+		}
+		return flag;
 	}
 
 	@Override
@@ -70,19 +82,35 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public void depositMoney(AccountBean param) {
-		// TODO Auto-generated method stub
+		for(int i=0 ; i<count ; i++) {
+			if(param.getAccountNum().equals(account[i].getAccountNum())) {
+				account[i].setMoney(account[i].getMoney()+param.getMoney());
+			}
+		}
 		
 	}
 
 	@Override
 	public void withdrawMoney(AccountBean param) {
-		// TODO Auto-generated method stub
-		
+		for(int i=0 ; i<count ; i++) {
+			if(param.getMoney() <=account[i].getMoney()) {
+			if(param.getAccountNum().equals(account[i].getAccountNum())) {
+				account[i].setMoney(account[i].getMoney()-param.getMoney());
+			}else {
+				break;
+				}
+			}
+		}
 	}
 
 	@Override
 	public void deleteAccountNum(String accountNum) {
-		// TODO Auto-generated method stub
+		for(int i=0 ; i<count ; i++) {
+			if(accountNum.equals(account[i].getAccountNum())) {
+				account[i] = account[count-1];
+				count--;
+			}
+		}
 		
 	}
 
