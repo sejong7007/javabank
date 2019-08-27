@@ -1,6 +1,6 @@
-package com.bitcamp.bank.controller;
+package com.bank.web.controllers;
 
-public class UserController {
+public class MemberController {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
