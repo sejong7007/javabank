@@ -5,8 +5,8 @@ import com.bank.web.domains.MemberBean;
 
 	public interface MemberService {
 	
-		public void Customerjoin(CustomerBean param);
-		public void Employeejoin(EmployeeBean param);
+		public void customerJoin(CustomerBean param);
+		public void employeeJoin(EmployeeBean param);
 		public CustomerBean[] findAllCustomers();
 		public EmployeeBean[] findAllEmployees();
 		public MemberBean[] findByName(String name);

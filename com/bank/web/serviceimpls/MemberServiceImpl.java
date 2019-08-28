@@ -16,27 +16,33 @@ import com.bank.web.services.MemberService;
 		}
 		
 		@Override
-		public void Customerjoin(CustomerBean param) {
+		public void customerJoin(CustomerBean param) {
 			customers[cuscount] = param;
 			cuscount ++;
 		}
 
 		@Override
-		public void Employeejoin(EmployeeBean param) {
+		public void employeeJoin(EmployeeBean param) {
 			employees[empcount] = param;
 			empcount ++;
 			
 		}
 		@Override
 		public CustomerBean[] findAllCustomers() {
-			// TODO Auto-generated method stub
-			return null;
+			CustomerBean[] cust = new CustomerBean[cuscount];
+			for(int i=0 ; i<cuscount ; i++) {
+				cust[i] = customers[i];
+			}
+			return cust;
 		}
 
 		@Override
 		public EmployeeBean[] findAllEmployees() {
-			// TODO Auto-generated method stub
-			return null;
+			EmployeeBean[] empl = new EmployeeBean[empcount];
+			for(int i=0 ; i<empcount ; i++) {
+				empl[i] = employees[i];
+			}
+			return empl;
 		}
 
 		@Override
@@ -105,27 +111,16 @@ import com.bank.web.services.MemberService;
 		@Override
 		public boolean login(MemberBean param) {
 			return findById(param.getId()).getPw().equals(param.getPw());
-			
-			/*
-			boolean flag = false;
-			MemberBean t = findById(param.getId());
-			if() {
-				
-			}
-			return flag;
-			*/
 		}
 
 		@Override
 		public int countCustomers() {
-			// TODO Auto-generated method stub
-			return 0;
+			return cuscount;
 		}
 
 		@Override
 		public int countEmployees() {
-			// TODO Auto-generated method stub
-			return 0;
+			return empcount;
 		}
 
 		@Override
@@ -167,9 +162,7 @@ import com.bank.web.services.MemberService;
 							break;
 						}
 					}
-					
 				}
-				
 		}
 
 		@Override
@@ -178,25 +171,24 @@ import com.bank.web.services.MemberService;
 				for(int i=0 ; i<cuscount ; i++) {
 					if(param.getId().equals(customers[i].getId())) {
 						customers[i] = customers[cuscount-1];
+						customers[cuscount-1] = null;
 						cuscount--;
 						break;
 					}
 				}
 				for(int i=0 ; i<empcount ; i++) {
 					if(param.getId().equals(employees[i].getId())) {
-						customers[i] = customers[cuscount-1];
-						cuscount--;
+						employees[i] = employees[empcount-1];
+						employees[empcount-1] = null;
+						empcount--;
 						break;
 					}
 				}
-				
 			}
-			
-			
 		}
-
-
-	
-	
 	}
 
+
+	
+	
+	
